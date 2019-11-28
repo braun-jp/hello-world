@@ -1,6 +1,6 @@
 kind: pipeline
 type: kubernetes
-name: default
+name: build
 
 steps:
   - name: test-build
@@ -17,3 +17,14 @@ steps:
         from_secret: DOCKER_PASSWORD
       repo: eonpatapon/hello-world
       tags: ${DRONE_COMMIT:0:8}
+    when:
+      event:
+        exclude:
+          - pull_request
+
+trigger:
+  branch:
+    - master
+  event:
+    - pull_request
+    - push
