@@ -1,0 +1,20 @@
+kind: pipeline
+type: kubernetes
+name: test
+
+steps:
+  - name: test
+    image: busybox
+    commands:
+      - echo "I'm in NS $${DRONE_NAMESPACE}"
+---
+kind: pipeline
+type: kubernetes
+name: build
+
+steps:
+  - name: test-build
+    image: golang:1.13
+    commands:
+    - go test -v
+    - go build -v -o main .
