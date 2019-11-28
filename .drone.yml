@@ -1,0 +1,21 @@
+kind: pipeline
+type: kubernetes
+name: build
+
+steps:
+  - name: test-build
+    image: golang:1.13
+    commands:
+    - go test -v
+    - go build -v -o main .
+---
+kind: pipeline
+type: kubernetes
+name: test
+
+steps:
+  - name: test-build
+    image: golang:1.13
+    commands:
+    - go test -v
+    - go build -v -o main .
